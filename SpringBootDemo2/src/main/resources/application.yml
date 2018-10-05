@@ -1,0 +1,52 @@
+spring:
+  #热部署
+  devtools:
+    restart:
+      enabled: true
+      additional-paths:
+        - src/main/java
+  #配置数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/testspringboot
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: peng123
+    druid:
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+  #redis配置
+  #redis数据库索引（默认为0）
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    jedis:     
+      pool:
+        #连接池最大连接数（使用负数表示没用限制）
+        max-active: 1000
+        #最大阻塞等待时间（使用负数表示没用限制）
+        max-wait: -1
+        #连接池中的最大空闲连接
+        max-idle: 10
+        #连接池中的最小空闲连接
+        min-idle: 2
+    #连接超时时间（毫秒）
+    timeout: 1000
+               
+#配置mybatis
+mybatis:
+  type-aliases-package: com.peng.pojo
+  mapper-locations:
+    - classpath:mapper/*.xml
+mapper:
+  mappers:
+    - com.peng.utils.MyMapper
+  not-empty: false
+  identity: MYSQL
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
